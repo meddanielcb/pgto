@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agradecimento</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: justify;
+        }
+        .step {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+        }
+        .step div {
+            padding: 10px;
+            border: 1px solid black;
+            border-radius: 0;
+            background: #eee;
+            color: black;
+        }
+        .step .current {
+            background: #000;
+            color: white;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group p {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 10px;
+            text-align: justify;
+        }
+        .form-group .error {
+            color: red;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="step">
+            <div>1</div>
+            <div>2</div>
+            <div class="current">3</div>
+        </div>
+        <div class="form-group">
+            <p>Obrigado por tentar realizar seu pagamento. Infelizmente, houve um problema.</p>
+            <p>Código 06: FALHA DE COMUNICAÇÃO</p>
+            <p class="error">Pagamento falhou. Tente novamente mais tarde.</p>
+        </div>
+    </div>
+</body>
+</html>
+
+
+           
+
+           
+
+
