@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário de Dados Pessoais</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .step {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+        }
+        .step div {
+            padding: 10px;
+            border: 1px solid black;
+            border-radius: 0;
+            background: #eee;
+            color: black;
+        }
+        .step .current {
+            background: #000;
+            color: white;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        .form-group input[type="submit"] {
+            background: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            text-align: center;
+            display: block;
+            margin: 0 auto;
+            box-sizing: border-box;
+        }
+        .form-group input[type="submit"]:hover {
+            background: #0056b3;
+        }
+        .payment-methods {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        .payment-methods img {
+            margin: 10px;
+            width: 50px;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 10px;
+            }
+            .form-group input {
+                padding: 8px;
+                font-size: 0.9rem;
+            }
+            .form-group input[type="submit"] {
+                padding: 8px;
+            }
+            .step div {
+                padding: 8px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <form id="personalForm">
+            <div class="step">
+                <div class="current">1</div>
+                <div>2</div>
+                <div>3</div>
+            </div>
+            <div class="form-group">
+                <label for="name">Nome Completo</label>
+                <input type="text" id="name" name="name" required pattern="[A-Za-zÀ-ÿ\s]+" title="Apenas caracteres do alfabeto">
+            </div>
+            <div class="form-group">
+                <label for="email">E-mail</label>
+                <input type="email" id="email" name="email" required title="Por favor, insira um e-mail válido">
+            </div>
+            <div class="form-group">
+                <label for="cpf">CPF</label>
+                <input type="text" id="cpf" name="cpf" required maxlength="11" pattern="\d{11}" title="Apenas 11 números">
+            </div>
+            <div class="form-group">
+                <label for="birth">Nascimento</label>
+                <input type="date" id="birth" name="birth" required>
+            </div>
+            <div class="form-group">
+                <label for="address">Endereço</label>
+                <input type="text" id="address" name="address" required pattern="[A-Za-zÀ-ÿ0-9\s,.-]+" title="Caracteres alfa numéricos">
+            </div>
+            <div class="form-group">
+                <label for="phone">Celular</label>
+                <input type="tel" id="phone" name="phone" required maxlength="11" pattern="\d{11}" title="DDD + número, totalizando 11 números">
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Próximo passo">
+            </div>
+            <div class="payment-methods">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/Mastercard-logo.png" alt="MasterCard">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg" alt="Visa">
+            </div>
+        </form>
+    </div>
+    <script>
+        document.getElementById('personalForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const form = e.target;
+            const data = new FormData(form);
+            fetch('https://getform.io/f/wbrkdlya', {
+                method: 'POST',
+                body: data,
+            })
+            .then(response => {
+                if (response.ok) {
+                    window.location.href = 'pagamento.html';
+                } else {
+                    alert('Houve um problema com o envio do formulário. Por favor, tente novamente.');
+                }
+            })
+            .catch(error => {
+                alert('Houve um problema com o envio do formulário. Por favor, tente novamente.');
+            });
+        });
+    </script>
+</body>
+</html>
+
+
